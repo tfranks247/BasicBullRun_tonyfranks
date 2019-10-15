@@ -40,7 +40,7 @@ public class HomeController {
     }
 
     @RequestMapping("/list/{id}")
-    public String showList(@PathVariable("id") long id, Model model)
+    public String showMessage(@PathVariable("id") long id, Model model)
     {
         model.addAttribute("messages", messageRepository.findById(id).get());
                 return "show";
