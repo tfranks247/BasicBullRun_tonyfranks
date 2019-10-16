@@ -26,13 +26,19 @@
         <td th:text="${message.date}"></td>
         <td th:text="${message.sentBy}"></td>
         <td>
+            <img th:src="${message.image}">
+        </td>
+        <td>
 
             <a th:href="@{/list/{id}(id=${message.id})}"> <button type="button" class="btn btn-primary btn-sm">list </button> </a> -
 
             <a th:href="@{/update/{id}(id=${message.id})}"> <button type="button" class="btn btn-primary btn-sm">update </button> </a> -
 
             <a th:href="@{/delete/{id}(id=${message.id})}"> <button type="button" class="btn btn-primary btn-sm">delete </button> </a>
-        </td></tr>
+        </td>
+
+
+    </tr>
 </table>
 </body>
 </html>

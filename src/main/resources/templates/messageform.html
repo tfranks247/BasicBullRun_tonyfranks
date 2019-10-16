@@ -6,7 +6,8 @@
 </head>
 <body>
 <h1>Message Form</h1>
-<form action="#" th:action="@{/process}" th:object="${message}" method="post">
+<form action="#" th:action="@{/process}" th:object="${message}" method="post"
+    enctype="multipart/form-data">
     <input type="hidden" th:field="*{id}" />
     Content :<input type="text" th:field="*{content}" />
     <span th:if="${#fields.hasErrors('content')}"
@@ -17,6 +18,7 @@
     Sent by :<input type="text" th:field="*{sentBy}" />
     <span th:if="${#fields.hasErrors('sentBy')}"
           th:errors="*{sentBy}"></span><br />
+    Image :<input type="file" name="file"/>
     <br />
     <input type="submit" value="Submit" />
 </form>
