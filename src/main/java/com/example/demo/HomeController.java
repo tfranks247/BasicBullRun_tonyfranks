@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,30 +24,30 @@ public class HomeController {
 
     @GetMapping("/add")
     public String messageForm(Model model){
-        model.addAttribute("messages", new Messages());
-        return "messagesform";
+        model.addAttribute("message", new Message());
+        return "messageform";
     }
 
     @PostMapping("/process")
-    public String processForm(@Valid Messages messages,
+    public String processForm(@Valid Message message,
                               BindingResult result){
         if (result.hasErrors()){
             return "messageform";
         }
-        messageRepository.save(messages);
+        messageRepository.save(message);
         return "redirect:/";
     }
 
     @RequestMapping("/list/{id}")
     public String showMessage(@PathVariable("id") long id, Model model)
     {
-        model.addAttribute("messages", messageRepository.findById(id).get());
+        model.addAttribute("message", messageRepository.findById(id).get());
                 return "show";
     }
 
     @RequestMapping("/update/{id}")
     public String updateMessage(@PathVariable("id") long id, Model model) {
-        model.addAttribute("messages", messageRepository.findById(id).get());
+        model.addAttribute("message", messageRepository.findById(id).get());
         return "messageform";
     }
 

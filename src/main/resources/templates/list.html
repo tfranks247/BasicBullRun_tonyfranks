@@ -12,12 +12,16 @@
         <th>Content</th>
         <th>Date</th>
         <th>SentBy</th>
-        <td>
-            <a th:href="@{/list/{id}(id=${messages.id})}">list</a> -
-            <a th:href="@{/update/{id}(id=${messages.id})}">list</a> -
-            <a th:href="@{/delete/{id}(id=${messages.id})}">list</a>
-        </td></tr>
     </tr>
+    <tr th:each="message : ${messages}" >
+        <td th:text="${message.content}"></td>
+        <td th:text="${message.date}"></td>
+        <td th:text="${message.sentBy}"></td>
+        <td>
+            <a th:href="@{/list/{id}(id=${message.id})}">list</a> -
+            <a th:href="@{/update/{id}(id=${message.id})}">update</a> -
+            <a th:href="@{/delete/{id}(id=${message.id})}">delete</a>
+        </td></tr>
 </table>
 </body>
 </html>

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Messages {
+public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
