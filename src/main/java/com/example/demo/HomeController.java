@@ -34,9 +34,9 @@ public class HomeController {
     }
 
     @PostMapping("/process")
-    public String processForm(@ModelAttribute @Valid Message message,
-                              @RequestParam("file") MultipartFile file,
-                              BindingResult result){
+    public String processForm( @ModelAttribute @Valid  Message message, BindingResult result,
+                              @RequestParam("file") MultipartFile file
+                              ){
         if (result.hasErrors()) {
             return "messageform";
         }
