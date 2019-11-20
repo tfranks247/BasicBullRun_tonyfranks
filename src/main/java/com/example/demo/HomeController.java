@@ -26,6 +26,11 @@ public class HomeController {
         model.addAttribute("messages", messageRepository.findAll());
         return "list";
     }
+    @PostMapping("/searchlist")
+    public String search(Model model, @RequestParam("search") String search) {
+        model.addAttribute("messages", messageRepository.findByContentContainingIgnoreCaseOrDateContainingIgnoreCaseOrSentByContainingIgnoreCase(search, search, search));
+        return "searchlist";
+    }
 
     @GetMapping("/add")
     public String messageForm(Model model){
@@ -34,27 +39,31 @@ public class HomeController {
     }
 
     @PostMapping("/process")
-    public String processForm( @ModelAttribute @Valid  Message message, BindingResult result,
+    public String processForm( @ModelAttribute Message message1, @Valid  Message message, BindingResult result,
                               @RequestParam("file") MultipartFile file
-                              ){
+                              ) {
         if (result.hasErrors()) {
             return "messageform";
         }
-        if (file.isEmpty()){
+        if (file.isEmpty() && message1.getImage() == null) {
             return "redirect:/add";
         }
-        try {
-            Map uploadResult = cloudc.upload(file.getBytes(),
-                    ObjectUtils.asMap("resourcetype", "auto"));
-            message.setImage(uploadResult.get("url").toString());
-            messageRepository.save(message);
+        if (!file.isEmpty()) {
+            try {
+                Map uploadResult = cloudc.upload(file.getBytes(),
+                        ObjectUtils.asMap("resourcetype", "auto"));
+                message.setImage(uploadResult.get("url").toString());
+                messageRepository.save(message);
 
-        }catch (IOException e){
-            e.printStackTrace();
-            return "redirect:/add";
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "redirect:/add";
+            }
         }
-        return "redirect:/";
-    }
+        else
+        messageRepository.save(message1);
+            return "redirect:/";
+        }
 
     @RequestMapping("/list/{id}")
     public String showMessage(@PathVariable("id") long id, Model model)
